@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 43.138.242.241:8848
+  application:
+    name: service-order
+
+server:
+  port: 8080
