@@ -6,13 +6,17 @@ spring:
       config:
         file-extension: yaml
         server-addr: 127.0.0.1:8848
+    sentinel:
+      eager: true
+      transport:
+        dashboard: 127.0.0.1:8080
   application:
     name: service-order
   config:
     import: nacos:service-order
 
 server:
-  port: 8080
+  port: 8090
 
 feign:
   sentinel:

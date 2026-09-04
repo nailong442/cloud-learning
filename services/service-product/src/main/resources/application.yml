@@ -6,6 +6,10 @@ spring:
       config:
         import-check:
           enabled: false
+    sentinel:
+      eager: true
+      transport:
+        dashboard: 127.0.0.1:8080
   application:
     name: service-product
 

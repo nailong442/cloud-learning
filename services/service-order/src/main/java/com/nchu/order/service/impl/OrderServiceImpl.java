@@ -1,6 +1,8 @@
 package com.nchu.order.service.impl;
 
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.nchu.common.cache.NchuCache;
 import com.nchu.common.order.bean.Order;
 import com.nchu.common.product.bean.Product;
@@ -18,7 +20,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductFeignClient productFeignClient;
     @Override
-    @NchuCache(prefix = "order:")
+//    @NchuCache(prefix = "order:")
+    @SentinelResource(value = "createOrder",blockHandler = "createOrderFallback")
     public Order create(Long userId, Long productId) {
         Order order = new Order();
         order.setUserId(userId);
@@ -31,4 +34,12 @@ public class OrderServiceImpl implements OrderService {
         return order;
 
     }
+
+    public Order createOrderFallback(Long userId, Long productId, BlockException e){
+        Order order = new Order();
+        order.setNickname("未知用户");
+        return order;
+    }
+
+
 }
